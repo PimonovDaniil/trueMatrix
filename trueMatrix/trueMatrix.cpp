@@ -10,6 +10,7 @@ private:
     int cols;
     double** matrix;
 
+    /*инициализация (создание дубликата матрицы)*/
     void init(int rows, int cols, double** matrix) {
         this->rows = rows; this->cols = cols;
         if ((rows > 0) && (cols > 0)) {
@@ -27,6 +28,24 @@ private:
         }
     }
 
+    /*копирование объекта матрица*/
+    void copy(Matrix& other) {
+        /*выкидываем за собой мусор*/
+        for (int i = 0; i < this->rows; i++)
+            delete[] this->matrix[i];
+        delete[] this->matrix;
+        this->cols = other.cols;
+        this->rows = other.rows;
+
+        this->matrix = new double* [this->rows];
+        for (int i = 0; i < this->rows; i++) {
+            this->matrix[i] = new double[this->cols];
+        }
+        for (int i = 0; i < this->rows; i++)
+            for (int j = 0; j < this->cols; j++)
+                this->matrix[i][j] = other[i][j];
+    }
+
 public:
     Matrix() {
         init(0, 0, NULL);
@@ -42,6 +61,12 @@ public:
         
     }
 
+    /*конструктор копирования*/
+    Matrix(Matrix& other) {
+        copy(other);
+    }
+
+
     ~Matrix() {
         /*выкидываем за собой мусор*/
         for (int i = 0; i < this->rows; i++)
@@ -49,6 +74,25 @@ public:
         delete[] this->matrix;
     }
 
+    /*подмена понятий (перегрузка)*/
+    Matrix& operator=(Matrix& other)
+    {
+        // Проверка на самоприсваивание
+        if (this != &other) copy(other);
+        return *this;
+    }
+
+    double*& operator[](int index) {
+        return this->matrix[index];//TODO сделать проверку индексов
+    }
+
+    int getCols() {
+        return this->cols;
+    }
+
+    int getRows() {
+        return this->rows;
+    }
 
     void setLength(int rows, int cols) {
         if ((rows == 0) || (cols == 0)) {
@@ -92,7 +136,7 @@ public:
         }
     }
 
-    void print() {
+    void print() { //TODO
         for (int i = 0; i < this->rows; i++) {
             for (int j = 0; j < this->cols; j++)
                 printf("%lf ", this->matrix[i][j]);
@@ -117,8 +161,11 @@ int main()
         printf("\n");
     }*/
     Matrix a(2,3,arr);
-    //a.setLength(4, 2);
-    a.print();
+    Matrix b;
+    b = a;
+    b.print();
+
+    
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
