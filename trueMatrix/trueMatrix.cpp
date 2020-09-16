@@ -8,14 +8,14 @@ class Matrix {
 private:
     int rows;
     int cols;
-    int** matrix;
+    double** matrix;
 
-    void init(int rows, int cols, int** matrix) {
+    void init(int rows, int cols, double** matrix) {
         this->rows = rows; this->cols = cols;
         if ((rows > 0) && (cols > 0)) {
-            int** newMatrix = new int* [rows];
+            double** newMatrix = new double* [rows];
             for (int i = 0; i < rows; i++) {
-                newMatrix[i] = new int[cols];
+                newMatrix[i] = new double[cols];
             }
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < cols; j++)
@@ -32,18 +32,31 @@ public:
         init(0, 0, NULL);
     }
 
-    Matrix(int rows,int cols, int** matrix) {
+    Matrix(int rows,int cols, double** matrix) {
         init(rows, cols, matrix);
         
     }
 
-    Matrix(int square, int** matrix) {
+    Matrix(int square, double** matrix) {
         init(square, square, matrix);
         
     }
 
+    ~Matrix() {
+        /*выкидываем за собой мусор*/
+        for (int i = 0; i < this->rows; i++)
+            delete[] this->matrix[i];
+        delete[] this->matrix;
+    }
+
+
     void setLength(int rows, int cols) {
         if ((rows == 0) || (cols == 0)) {
+            /*выкидываем за собой мусор*/
+            for (int i = 0; i < this->rows; i++)
+                delete[] this->matrix[i];
+            delete[] this->matrix;
+
             this->matrix = NULL;
             this->rows = rows;
             this->cols = cols;
@@ -53,9 +66,9 @@ public:
         }
         else if (!((this->rows == rows) && (this->cols == cols))) {
             /*инициализируем новую матрицу*/
-            int** newMatrix = new int* [rows];
+            double** newMatrix = new double* [rows];
             for (int i = 0; i < rows; i++) {
-                newMatrix[i] = new int[cols];
+                newMatrix[i] = new double[cols];
             }
 
             /*переносим данные*/
@@ -82,7 +95,7 @@ public:
     void print() {
         for (int i = 0; i < this->rows; i++) {
             for (int j = 0; j < this->cols; j++)
-                printf("%d ", this->matrix[i][j]);
+                printf("%lf ", this->matrix[i][j]);
             printf("\n");
         }
     }
@@ -92,17 +105,20 @@ public:
 int main()
 {
     /*инициализируем новую матрицу*/
-    int** arr = new int* [2];
+    double** arr = new double* [2];
     for (int i = 0; i < 2; i++) {
-        arr[i] = new int[3];
+        arr[i] = new double[3];
     }
     arr[0][0] = 1; arr[0][1] = 2; arr[0][2] = 3;
     arr[1][0] = 4; arr[1][1] = 5; arr[1][2] = 6;
+    /*for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 3; j++)
+            printf("%lf ", arr[i][j]);
+        printf("\n");
+    }*/
     Matrix a(2,3,arr);
+    //a.setLength(4, 2);
     a.print();
-    a.setLength(2, 9);
-    a.print();
-
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
