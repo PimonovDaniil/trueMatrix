@@ -97,6 +97,30 @@ namespace mathTools
         return this->matrix[index];//TODO сделать проверку индексов
     }
 
+    /*подмена понятий (перегрузка)*/
+    void Matrix::operator+=(Matrix& other) {
+        if (this->isSum(other)) {
+            for (int i = 0; i < this->rows; i++)
+                for (int j = 0; j < this->cols; j++)
+                    this->matrix[i][j] += other[i][j];
+        }
+        else {
+            throw "Сложение невозможно";
+        }
+    }
+
+    /*подмена понятий (перегрузка)*/
+    void Matrix::operator-=(Matrix& other) {
+        if (this->isSum(other)) {
+            for (int i = 0; i < this->rows; i++)
+                for (int j = 0; j < this->cols; j++)
+                    this->matrix[i][j] -= other[i][j];
+        }
+        else {
+            throw "Вычитание невозможно";
+        }
+    }
+
     int Matrix::getCols() {//узнать кол-во столбцов
         return this->cols;
     }
@@ -153,6 +177,38 @@ namespace mathTools
 
     bool Matrix::isMultiply(Matrix other) {
         return (this->cols == other.getRows()) ? true : false;
+    }
+
+    bool Matrix::isSum(Matrix other) {
+        return ((this->cols == other.getCols()) && (this->rows == other.getRows())) ? true : false;
+    }
+
+    double Matrix::getMax() {
+        if ((this->rows > 0) && (this->cols > 0)) {
+            double max = matrix[0][0];
+            for (int i = 0; i < this->rows; i++)
+                for (int j = 0; j < this->cols; j++)
+                    if (matrix[i][j] > max)
+                        max = matrix[i][j];
+            return max;
+        }
+        else {
+            throw "Матрица пустая";
+        }
+    }
+
+    double Matrix::getMin() {
+        if ((this->rows > 0) && (this->cols > 0)) {
+            double min = matrix[0][0];
+            for (int i = 0; i < this->rows; i++)
+                for (int j = 0; j < this->cols; j++)
+                    if (matrix[i][j] < min)
+                        min = matrix[i][j];
+            return min;
+        }
+        else {
+            throw "Матрица пустая";
+        }
     }
 
     void Matrix::print() { //TODO добавить перегрузку оператора <<

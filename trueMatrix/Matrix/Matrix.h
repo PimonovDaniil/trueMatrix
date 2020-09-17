@@ -44,6 +44,12 @@ namespace mathTools
         /*подмена понятий (перегрузка)*/
         double*& operator[](int index);
 
+        /*подмена понятий (перегрузка)*/
+        void operator+=(Matrix& other);
+
+        /*подмена понятий (перегрузка)*/
+        void operator-=(Matrix& other);
+
         int getCols(); //узнать кол-во столбцов
 
         int getRows(); //узнать кол-во рядов
@@ -55,6 +61,12 @@ namespace mathTools
         void setLength(int rows, int cols);
 
         bool isMultiply(Matrix other);
+
+        bool isSum(Matrix other);
+
+        double getMax();
+
+        double getMin();
 
         void print(); //TODO добавить перегрузку оператора <<
 	};
