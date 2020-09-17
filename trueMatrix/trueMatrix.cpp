@@ -20,11 +20,17 @@ private:
             }
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < cols; j++)
+                    if (matrix != nullptr) {
                         newMatrix[i][j] = matrix[i][j];
+                    }
+                    else {
+                        newMatrix[i][j] = 0;
+                    }
+                    
             this->matrix = newMatrix;
         }
         else {
-            this->matrix = NULL;
+            this->matrix = nullptr;
         }
     }
 
@@ -47,18 +53,29 @@ private:
     }
 
 public:
+    /*конструктор  без параметров*/
     Matrix() {
-        init(0, 0, NULL);
+        init(0, 0, nullptr);
     }
 
-    Matrix(int rows,int cols, double** matrix) {
+    /*принимает матрицу с размерами rows cols*/
+    Matrix(int rows, int cols, double** matrix) {
         init(rows, cols, matrix);
-        
     }
 
+    /*матрица размеров rows cols заполненная нулями*/
+    Matrix(int rows, int cols) {
+        init(rows, cols, nullptr);
+    }
+
+    /*принимает квадратную матрицу*/
     Matrix(int square, double** matrix) {
         init(square, square, matrix);
-        
+    }
+
+    /*матрица размера square^2 заполненная нулями*/
+    Matrix(int square) {
+        init(square, square, nullptr);
     }
 
     /*конструктор копирования*/
@@ -66,7 +83,7 @@ public:
         copy(other);
     }
 
-
+    /*деструктор*/
     ~Matrix() {
         /*выкидываем за собой мусор*/
         for (int i = 0; i < this->rows; i++)
@@ -82,18 +99,23 @@ public:
         return *this;
     }
 
+    /*подмена понятий (перегрузка)*/
     double*& operator[](int index) {
         return this->matrix[index];//TODO сделать проверку индексов
     }
 
-    int getCols() {
+    int getCols() {//узнать кол-во столбцов
         return this->cols;
     }
 
-    int getRows() {
+    int getRows() {//узнать кол-во рядов
         return this->rows;
     }
 
+    /*Изменяет размер матрицы. Работает как и в сторону увеличения, так
+    и в сторону уменьшения вплоть до удаления при пареметрах (0, 0). 
+    При уменьшении размеров матрицы лишние элементы удаляются, при увиличерии
+    заполняются нулями. */
     void setLength(int rows, int cols) {
         if ((rows == 0) || (cols == 0)) {
             /*выкидываем за собой мусор*/
@@ -101,7 +123,7 @@ public:
                 delete[] this->matrix[i];
             delete[] this->matrix;
 
-            this->matrix = NULL;
+            this->matrix = nullptr;
             this->rows = rows;
             this->cols = cols;
         }
@@ -136,7 +158,7 @@ public:
         }
     }
 
-    void print() { //TODO
+    void print() { //TODO добавить перегрузку оператора <<
         for (int i = 0; i < this->rows; i++) {
             for (int j = 0; j < this->cols; j++)
                 printf("%lf ", this->matrix[i][j]);
@@ -160,12 +182,9 @@ int main()
             printf("%lf ", arr[i][j]);
         printf("\n");
     }*/
-    Matrix a(2,3,arr);
-    Matrix b;
-    b = a;
-    b.print();
+    Matrix a(2, 3, arr);
+    a.print();
 
-    
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
