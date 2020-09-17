@@ -29,7 +29,7 @@ namespace mathTools
     }
 
     /*копирование объекта матрица*/
-    void Matrix::copy(Matrix& other) {
+    void Matrix::copy(const Matrix& other) {
         /*выкидываем за собой мусор*/
         /*for (int i = 0; i < this->rows; i++)
             delete[] this->matrix[i];
@@ -85,7 +85,7 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator=(Matrix& other)
+    Matrix& Matrix::operator=(const Matrix& other)
     {
         // Проверка на самоприсваивание
         if (this != &other) copy(other);
@@ -93,16 +93,17 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    double*& Matrix::operator[](int index) {
-        return this->matrix[index];//TODO сделать проверку индексов
+    double*& Matrix::operator[](int index) const{
+       return this->matrix[index];//TODO сделать проверку индексов
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator+=(Matrix& other) {
+    Matrix& Matrix::operator+=(const Matrix& other) {
         if (this->isSum(other)) {
             for (int i = 0; i < this->rows; i++)
                 for (int j = 0; j < this->cols; j++)
-                    this->matrix[i][j] += other[i][j];
+
+                    this->matrix[i][j] = this->matrix[i][j]+other[i][j];
         }
         else {
             throw "Вычитание невозможно";
@@ -157,11 +158,19 @@ namespace mathTools
         return *this;
     }
 
-    int Matrix::getCols() {//узнать кол-во столбцов
+    /*подмена понятий (перегрузка)*/
+    Matrix& Matrix::operator+(const Matrix& other) {
+        Matrix& res(*this);
+        res += other;
+        return res;
+    }
+
+
+    int Matrix::getCols() const{//узнать кол-во столбцов
         return this->cols;
     }
 
-    int Matrix::getRows() {//узнать кол-во рядов
+    int Matrix::getRows() const{//узнать кол-во рядов
         return this->rows;
     }
 
@@ -215,7 +224,7 @@ namespace mathTools
         return (this->rows == other.getCols()) ? true : false;
     }
 
-    bool Matrix::isSum(Matrix other) {
+    bool Matrix::isSum(const Matrix& other) {
         return ((this->cols == other.getCols()) && (this->rows == other.getRows())) ? true : false;
     }
 

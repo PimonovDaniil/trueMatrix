@@ -19,6 +19,7 @@ int main()
     a1[2][0] = 0; a1[2][1] = 1; a1[2][2] = 0;
 
     Matrix a(3, 3, a1);
+    a.setLength(2, 2);
     a.print();
 
     printf("\n");
@@ -31,12 +32,16 @@ int main()
     b1[1][0] = 0; b1[1][1] = -2; b1[1][2] = 2;
 
     Matrix b(2, 3, b1);
+    b.setLength(2, 2);
     b.print();
     printf("\n");
 
-    a *= b;
-    a *= 0.5;
-    a.print();
+    Matrix c;
+    c = a + b;
+    c.print(); printf("\n");
+    a.print(); printf("\n");
+    b.print(); printf("\n");
+
 
 }
 

@@ -14,7 +14,7 @@ namespace mathTools
         void init(int rows, int cols, double** matrix);
 
         /*копирование объекта матрица*/
-        void copy(Matrix& other);
+        void copy(const Matrix& other);
 
     public:
         /*конструктор  без параметров*/
@@ -33,19 +33,22 @@ namespace mathTools
         Matrix(int square);
 
         /*конструктор копирования*/
-        Matrix(Matrix& other);
+        Matrix(Matrix& other) ;
 
         /*деструктор*/
         ~Matrix();
 
         /*подмена понятий (перегрузка)*/
-        Matrix& operator=(Matrix& other);
+        Matrix& operator=(const Matrix& other);
 
         /*подмена понятий (перегрузка)*/
-        double*& operator[](int index);
+        double*& operator[](int index) const;
 
         /*подмена понятий (перегрузка)*/
-        Matrix& operator+=(Matrix& other);
+        Matrix& operator+=(const Matrix& other);
+
+        /*подмена понятий (перегрузка)*/
+        Matrix& operator+(const Matrix& other);
 
         /*подмена понятий (перегрузка)*/
         Matrix& operator-=(Matrix& other);
@@ -56,9 +59,9 @@ namespace mathTools
         /*подмена понятий (перегрузка)*/
         Matrix& operator*=(Matrix& other);
 
-        int getCols(); //узнать кол-во столбцов
+        int getCols() const; //узнать кол-во столбцов
 
-        int getRows(); //узнать кол-во рядов
+        int getRows() const; //узнать кол-во рядов
 
         /*Изменяет размер матрицы. Работает как и в сторону увеличения, так
         и в сторону уменьшения вплоть до удаления при пареметрах (0, 0).
@@ -68,7 +71,7 @@ namespace mathTools
 
         bool isMultiply(Matrix other);
 
-        bool isSum(Matrix other);
+        bool isSum(const Matrix& other);
 
         double getMax();
 
