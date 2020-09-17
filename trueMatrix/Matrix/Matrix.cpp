@@ -105,7 +105,34 @@ namespace mathTools
                     this->matrix[i][j] += other[i][j];
         }
         else {
-            throw "Сложение невозможно";
+            throw "Вычитание невозможно";
+        }
+    }
+
+    void Matrix::operator*=(Matrix& other) {
+        if (this->isMultiply(other)) {
+            double** newMatrix = new double* [other.getRows()];
+            for (int i = 0; i < other.getRows(); i++) {
+                newMatrix[i] = new double[this->cols];
+            }
+            
+            for (int i = 0; i < other.getRows(); i++)
+                for (int j = 0; j < this->cols; j++) {
+                    double c = 0.0;
+                    for (int k = 0; k < this->cols; k++) {
+                        c += this->matrix[k][j] * other[i][k];
+                    }
+                    newMatrix[i][j] = c;
+                }
+
+            for (int i = 0; i < this->rows; i++)
+                delete[] this->matrix[i];
+            delete[] this->matrix;
+            this->rows = other.getRows();
+            matrix = newMatrix;
+        }
+        else {
+            throw "Вычитание невозможно";
         }
     }
 
@@ -176,7 +203,7 @@ namespace mathTools
     }
 
     bool Matrix::isMultiply(Matrix other) {
-        return (this->cols == other.getRows()) ? true : false;
+        return (this->rows == other.getCols()) ? true : false;
     }
 
     bool Matrix::isSum(Matrix other) {

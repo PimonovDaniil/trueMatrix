@@ -10,20 +10,32 @@ using namespace mathTools;
 int main()
 {
     /*инициализируем новую матрицу*/
-    double** arr = new double* [2];
-    for (int i = 0; i < 2; i++) {
-        arr[i] = new double[3];
+    double** a1 = new double* [3];
+    for (int i = 0; i < 3; i++) {
+        a1[i] = new double[3];
     }
-    arr[0][0] = 1; arr[0][1] = 2; arr[0][2] = 3;
-    arr[1][0] = 4; arr[1][1] = 5; arr[1][2] = 6;
+    a1[0][0] = 4; a1[0][1] = 1; a1[0][2] = 0;
+    a1[1][0] = 3; a1[1][1] = 2; a1[1][2] = 1;
+    a1[2][0] = 0; a1[2][1] = 1; a1[2][2] = 0;
 
-    Matrix a(2, 3, arr);
-    a.setLength(2, 2);
-    Matrix b(2, 2);
-    a.print(); printf("\n");
-    b.print(); printf("\n");
-    b -= a;
+    Matrix a(3, 3, a1);
+    a.print();
+
+    printf("\n");
+    /*инициализируем новую матрицу*/
+    double** b1 = new double* [2];
+    for (int i = 0; i < 2; i++) {
+        b1[i] = new double[3];
+    }
+    b1[0][0] = 2; b1[0][1] = 0;  b1[0][2] = -1;
+    b1[1][0] = 0; b1[1][1] = -2; b1[1][2] = 2;
+
+    Matrix b(2, 3, b1);
     b.print();
+    printf("\n");
+
+    a *= b;
+    a.print();
 
 }
 

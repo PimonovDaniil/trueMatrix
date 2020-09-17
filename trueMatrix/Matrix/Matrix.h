@@ -50,6 +50,9 @@ namespace mathTools
         /*подмена понятий (перегрузка)*/
         void operator-=(Matrix& other);
 
+        /*подмена понятий (перегрузка)*/
+        void operator*=(Matrix& other);
+
         int getCols(); //узнать кол-во столбцов
 
         int getRows(); //узнать кол-во рядов
