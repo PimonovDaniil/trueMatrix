@@ -35,6 +35,7 @@ int main()
     printf("\n");
 
     a *= b;
+    a *= 0.5;
     a.print();
 
 }

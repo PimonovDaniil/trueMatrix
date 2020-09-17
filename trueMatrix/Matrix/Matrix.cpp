@@ -98,7 +98,7 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    void Matrix::operator+=(Matrix& other) {
+    Matrix& Matrix::operator+=(Matrix& other) {
         if (this->isSum(other)) {
             for (int i = 0; i < this->rows; i++)
                 for (int j = 0; j < this->cols; j++)
@@ -107,9 +107,18 @@ namespace mathTools
         else {
             throw "Вычитание невозможно";
         }
+        return *this;
     }
 
-    void Matrix::operator*=(Matrix& other) {
+    /*подмена понятий (перегрузка)*/
+    Matrix& Matrix::operator*=(double k) {
+        for (int i = 0; i < this->rows; i++)
+            for (int j = 0; j < this->cols; j++)
+                this->matrix[i][j] *= k;
+        return *this;
+    }
+
+    Matrix& Matrix::operator*=(Matrix& other) {
         if (this->isMultiply(other)) {
             double** newMatrix = new double* [other.getRows()];
             for (int i = 0; i < other.getRows(); i++) {
@@ -118,13 +127,11 @@ namespace mathTools
             
             for (int i = 0; i < other.getRows(); i++)
                 for (int j = 0; j < this->cols; j++) {
-                    double c = 0.0;
+                    newMatrix[i][j] = 0.0;
                     for (int k = 0; k < this->cols; k++) {
-                        c += this->matrix[k][j] * other[i][k];
-                    }
-                    newMatrix[i][j] = c;
+                        newMatrix[i][j] += (this->matrix[k][j] * other[i][k]);
+                    }   
                 }
-
             for (int i = 0; i < this->rows; i++)
                 delete[] this->matrix[i];
             delete[] this->matrix;
@@ -134,10 +141,11 @@ namespace mathTools
         else {
             throw "Вычитание невозможно";
         }
+        return *this;
     }
 
     /*подмена понятий (перегрузка)*/
-    void Matrix::operator-=(Matrix& other) {
+    Matrix& Matrix::operator-=(Matrix& other) {
         if (this->isSum(other)) {
             for (int i = 0; i < this->rows; i++)
                 for (int j = 0; j < this->cols; j++)
@@ -146,6 +154,7 @@ namespace mathTools
         else {
             throw "Вычитание невозможно";
         }
+        return *this;
     }
 
     int Matrix::getCols() {//узнать кол-во столбцов

@@ -45,13 +45,16 @@ namespace mathTools
         double*& operator[](int index);
 
         /*подмена понятий (перегрузка)*/
-        void operator+=(Matrix& other);
+        Matrix& operator+=(Matrix& other);
 
         /*подмена понятий (перегрузка)*/
-        void operator-=(Matrix& other);
+        Matrix& operator-=(Matrix& other);
 
         /*подмена понятий (перегрузка)*/
-        void operator*=(Matrix& other);
+        Matrix& operator*=(double k);
+
+        /*подмена понятий (перегрузка)*/
+        Matrix& operator*=(Matrix& other);
 
         int getCols(); //узнать кол-во столбцов
 
