@@ -37,9 +37,9 @@ private:
     /*копирование объекта матрица*/
     void copy(Matrix& other) {
         /*выкидываем за собой мусор*/
-        for (int i = 0; i < this->rows; i++)
+        /*for (int i = 0; i < this->rows; i++)
             delete[] this->matrix[i];
-        delete[] this->matrix;
+        delete[] this->matrix;*/
         this->cols = other.cols;
         this->rows = other.rows;
 
@@ -158,6 +158,10 @@ public:
         }
     }
 
+    bool isMultiply(Matrix other) {
+        return (this->cols == other.getRows()) ? true : false;
+    }
+
     void print() { //TODO добавить перегрузку оператора <<
         for (int i = 0; i < this->rows; i++) {
             for (int j = 0; j < this->cols; j++)
@@ -183,7 +187,8 @@ int main()
         printf("\n");
     }*/
     Matrix a(2, 3, arr);
-    a.print();
+    Matrix b(3, 2);
+    printf("%d ", a.isMultiply(b));
 
 }
 
