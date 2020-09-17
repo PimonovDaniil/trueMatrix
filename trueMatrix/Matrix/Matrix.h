@@ -14,7 +14,7 @@ namespace mathTools
         void init(int rows, int cols, double** matrix);
 
         /*копирование объекта матрица*/
-        void copy(const Matrix& other);
+        void copy(Matrix& other);
 
     public:
         /*конструктор  без параметров*/
@@ -39,7 +39,7 @@ namespace mathTools
         ~Matrix();
 
         /*подмена понятий (перегрузка)*/
-        Matrix& operator=(const Matrix& other);
+        Matrix& operator=(Matrix other);
 
         /*подмена понятий (перегрузка)*/
         double*& operator[](int index) const;

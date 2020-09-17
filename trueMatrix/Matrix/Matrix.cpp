@@ -29,7 +29,7 @@ namespace mathTools
     }
 
     /*копирование объекта матрица*/
-    void Matrix::copy(const Matrix& other) {
+    void Matrix::copy(Matrix& other){
         /*выкидываем за собой мусор*/
         /*for (int i = 0; i < this->rows; i++)
             delete[] this->matrix[i];
@@ -41,6 +41,7 @@ namespace mathTools
         for (int i = 0; i < this->rows; i++) {
             this->matrix[i] = new double[this->cols];
         }
+
         for (int i = 0; i < this->rows; i++)
             for (int j = 0; j < this->cols; j++)
                 this->matrix[i][j] = other[i][j];
@@ -85,7 +86,7 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator=(const Matrix& other)
+    Matrix& Matrix::operator=(Matrix other) 
     {
         // Проверка на самоприсваивание
         if (this != &other) copy(other);
