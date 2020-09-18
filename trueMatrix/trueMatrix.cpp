@@ -37,7 +37,7 @@ int main()
     printf("\n");
 
     Matrix c;
-    c = (a + b);
+    c = a * 2;
     c.print(); printf("\n");
     a.print(); printf("\n");
     b.print(); printf("\n");

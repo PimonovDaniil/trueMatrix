@@ -10,57 +10,33 @@ namespace mathTools
         int cols;
         double** matrix;
 
-        /*инициализация (создание дубликата матрицы)*/
-        void init(int rows, int cols, double** matrix);
-
-        /*копирование объекта матрица*/
-        void copy(Matrix& other);
+        
+        void init(int rows, int cols, double** matrix);/*инициализация (создание дубликата матрицы)*/
+        void copy(Matrix& other);/*копирование объекта матрица*/
 
     public:
-        /*конструктор  без параметров*/
-        Matrix();
-
-        /*принимает матрицу с размерами rows cols*/
-        Matrix(int rows, int cols, double** matrix);
-
-        /*матрица размеров rows cols заполненная нулями*/
-        Matrix(int rows, int cols);
-
-        /*принимает квадратную матрицу*/
-        Matrix(int square, double** matrix);
-
-        /*матрица размера square^2 заполненная нулями*/
-        Matrix(int square);
-
-        /*конструктор копирования*/
-        Matrix(Matrix& other) ;
-
-        /*деструктор*/
-        ~Matrix();
+        
+        Matrix(); /*конструктор  без параметров*/
+        Matrix(int rows, int cols, double** matrix); /*принимает матрицу с размерами rows cols*/
+        Matrix(int rows, int cols);/*матрица размеров rows cols заполненная нулями*/
+        Matrix(int square, double** matrix);/*принимает квадратную матрицу*/
+        Matrix(int square);/*матрица размера square^2 заполненная нулями*/
+        Matrix(Matrix& other) ;/*конструктор копирования*/
+        ~Matrix();/*деструктор*/
 
         /*подмена понятий (перегрузка)*/
         Matrix& operator=(Matrix& other);
-
-        /*подмена понятий (перегрузка)*/
         double*& operator[](int index) const;
-
-        /*подмена понятий (перегрузка)*/
         Matrix& operator+=(const Matrix& other);
-
-        /*подмена понятий (перегрузка)*/
-        Matrix& operator+(Matrix& other);
-
-        /*подмена понятий (перегрузка)*/
         Matrix& operator-=(Matrix& other);
-
-        /*подмена понятий (перегрузка)*/
         Matrix& operator*=(double k);
-
-        /*подмена понятий (перегрузка)*/
         Matrix& operator*=(Matrix& other);
+        Matrix& operator+(Matrix& other);
+        Matrix& operator-(Matrix& other);
+        Matrix& operator*(Matrix& other);
+        Matrix& operator*(double k);
 
         int getCols() const; //узнать кол-во столбцов
-
         int getRows() const; //узнать кол-во рядов
 
         /*Изменяет размер матрицы. Работает как и в сторону увеличения, так
@@ -69,13 +45,11 @@ namespace mathTools
         заполняются нулями. */
         void setLength(int rows, int cols);
 
-        bool isMultiply(Matrix other);
+        bool isMultiply(Matrix other); //проверка на возможность умножения
+        bool isSum(const Matrix& other); //проверка на возможность сложения/вычитания
 
-        bool isSum(const Matrix& other);
-
-        double getMax();
-
-        double getMin();
+        double getMax(); //вернуть максимальный элемент
+        double getMin(); //вернуть минимальный элемент
 
         void print(); //TODO добавить перегрузку оператора <<
 	};

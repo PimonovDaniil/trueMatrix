@@ -103,7 +103,6 @@ namespace mathTools
         if (this->isSum(other)) {
             for (int i = 0; i < this->rows; i++)
                 for (int j = 0; j < this->cols; j++)
-
                     this->matrix[i][j] = this->matrix[i][j]+other[i][j];
         }
         else {
@@ -122,22 +121,22 @@ namespace mathTools
 
     Matrix& Matrix::operator*=(Matrix& other) {
         if (this->isMultiply(other)) {
-            double** newMatrix = new double* [other.getRows()];
-            for (int i = 0; i < other.getRows(); i++) {
-                newMatrix[i] = new double[this->cols];
+            double** newMatrix = new double* [this->rows];
+            for (int i = 0; i < this->rows; i++) {
+                newMatrix[i] = new double[other.getCols()];
             }
-            
-            for (int i = 0; i < other.getRows(); i++)
-                for (int j = 0; j < this->cols; j++) {
+
+            for (int i = 0; i < this->rows; i++)
+                for (int j = 0; j < other.getCols(); j++) {
                     newMatrix[i][j] = 0.0;
                     for (int k = 0; k < this->cols; k++) {
-                        newMatrix[i][j] += (this->matrix[k][j] * other[i][k]);
+                        newMatrix[i][j] += (this->matrix[i][k] * other[k][j]);
                     }   
                 }
             for (int i = 0; i < this->rows; i++)
                 delete[] this->matrix[i];
             delete[] this->matrix;
-            this->rows = other.getRows();
+            this->cols = other.getCols();
             matrix = newMatrix;
         }
         else {
@@ -163,12 +162,29 @@ namespace mathTools
     Matrix& Matrix::operator+(Matrix& other) {
         Matrix *res = new Matrix(*this);
         *res += other;
-        //this->print(); printf("\n");//TODO
-        //other.print(); printf("\n");
-        //res->print();
         return *res;
     }
 
+    /*подмена понятий (перегрузка)*/
+    Matrix& Matrix::operator-(Matrix& other) {
+        Matrix* res = new Matrix(*this);
+        *res -= other;
+        return *res;
+    }
+
+    /*подмена понятий (перегрузка)*/
+    Matrix& Matrix::operator*(Matrix& other) {
+        Matrix* res = new Matrix(*this);
+        *res *= other;
+        return *res;
+    }
+
+    /*подмена понятий (перегрузка)*/
+    Matrix& Matrix::operator*(double k) {
+        Matrix* res = new Matrix(*this);
+        *res *= k;
+        return *res;
+    }
 
     int Matrix::getCols() const{//узнать кол-во столбцов
         return this->cols;
@@ -225,7 +241,7 @@ namespace mathTools
     }
 
     bool Matrix::isMultiply(Matrix other) {
-        return (this->rows == other.getCols()) ? true : false;
+        return (other.getRows() == this->cols) ? true : false;
     }
 
     bool Matrix::isSum(const Matrix& other) {
