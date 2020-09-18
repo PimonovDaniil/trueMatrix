@@ -6,6 +6,8 @@
 
 namespace mathTools
 {
+    bool Matrix::debug = false;
+
     /*инициализация (создание дубликата матрицы)*/
     void Matrix::init(int rows, int cols, double** matrix) {
         this->rows = rows; this->cols = cols;
@@ -52,31 +54,37 @@ namespace mathTools
     /*конструктор  без параметров*/
     Matrix::Matrix() {
         init(0, 0, nullptr);
+        if (debug) printf("конструктор 1\n");
     }
 
     /*принимает матрицу с размерами rows cols*/
     Matrix::Matrix(int rows, int cols, double** matrix) {
         init(rows, cols, matrix);
+        if (debug) printf("конструктор 2\n");
     }
 
     /*матрица размеров rows cols заполненная нулями*/
     Matrix::Matrix(int rows, int cols) {
         init(rows, cols, nullptr);
+        if (debug) printf("конструктор 3\n");
     }
 
     /*принимает квадратную матрицу*/
     Matrix::Matrix(int square, double** matrix) {
         init(square, square, matrix);
+        if (debug) printf("конструктор 4\n");
     }
 
     /*матрица размера square^2 заполненная нулями*/
     Matrix::Matrix(int square) {
         init(square, square, nullptr);
+        if (debug) printf("конструктор 5\n");
     }
 
     /*конструктор копирования*/
     Matrix::Matrix(Matrix& other) {
         copy(other);
+        if (debug) printf("конструктор копирования\n");
     }
 
     /*деструктор*/
@@ -85,6 +93,7 @@ namespace mathTools
         for (int i = 0; i < this->rows; i++)
             delete[] this->matrix[i];
         delete[] this->matrix;
+        if (debug) printf("деструктор\n");
     }
 
     /*подмена понятий (перегрузка)*/
@@ -278,16 +287,6 @@ namespace mathTools
         }
     }
 
-    void Matrix::print() { //TODO добавить перегрузку оператора <<
-        
-        for (int i = 0; i < this->rows; i++) {
-            for (int j = 0; j < this->cols; j++) {
-                std::cout << std::resetiosflags(std::ios::scientific) << std::setw(8) << std::setprecision(3) << this->matrix[i][j] << " ";
-            }    
-            std::cout << std::endl;
-        }
-    }
-
     std::ostream& operator<< (std::ostream& os, const Matrix& matrix) {
         //return os << "__" << std::endl;
         for (int i = 0; i < matrix.getRows(); i++) {
@@ -299,14 +298,3 @@ namespace mathTools
         return os;
     }
 }
-
-//std::ostream& operator<< (std::ostream& os, Matrix& matrix) {
-//    //os << /* the formatted data of rhs you want to print */;
-//    for (int i = 0; i < matrix.getRows(); i++) {
-//        for (int j = 0; j < matrix.getCols(); j++) {
-//            os << resetiosflags(ios::scientific) << setw(8) << setprecision(3) << matrix[i][j] << " ";
-        //}
-//        os << endl;
-//    }
-//    return os;
-//}

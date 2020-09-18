@@ -9,12 +9,12 @@ namespace mathTools
         int rows;
         int cols;
         double** matrix;
-
         
         void init(int rows, int cols, double** matrix);/*инициализация (создание дубликата матрицы)*/
         void copy(Matrix& other);/*копирование объекта матрица*/
 
     public:
+        static bool debug;
         
         Matrix(); /*конструктор  без параметров*/
         Matrix(int rows, int cols, double** matrix); /*принимает матрицу с размерами rows cols*/
@@ -52,8 +52,6 @@ namespace mathTools
 
         double getMax(); //вернуть максимальный элемент
         double getMin(); //вернуть минимальный элемент
-
-        void print(); //TODO добавить перегрузку оператора <<
 
         friend std::ostream& operator<< (std::ostream& os, const Matrix& matrix);
 	};

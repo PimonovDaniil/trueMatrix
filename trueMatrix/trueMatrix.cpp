@@ -1,7 +1,7 @@
 ﻿
 // trueMatrix.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
-
+#include <locale.h>
 #include <iostream>
 #include "Matrix/Matrix.h"
 using namespace mathTools;
@@ -10,6 +10,8 @@ using namespace std;
 
 int main()
 {
+    setlocale(LC_CTYPE, "RUSSIAN");
+    Matrix::debug = false;
     /*инициализируем новую матрицу*/
     double** a1 = new double* [3];
     for (int i = 0; i < 3; i++) {
@@ -21,7 +23,7 @@ int main()
 
     Matrix a(3, 3, a1);
     a.setLength(2, 2);
-    a.print();
+    cout << a << endl;
 
     printf("\n");
     /*инициализируем новую матрицу*/
@@ -34,14 +36,10 @@ int main()
 
     Matrix b(2, 3, b1);
     b.setLength(2, 2);
-    b.print();
-    printf("\n");
+    cout << b << endl;
 
     Matrix c;
     c = a * 2;
-    /*c.print(); printf("\n");
-    a.print(); printf("\n");
-    b.print(); printf("\n");*/
     cout << c << endl << a << endl << b;
 
 
