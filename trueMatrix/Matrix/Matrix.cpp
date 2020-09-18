@@ -86,7 +86,7 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator=(Matrix other) 
+    Matrix& Matrix::operator=(Matrix& other) 
     {
         // Проверка на самоприсваивание
         if (this != &other) copy(other);
@@ -160,10 +160,13 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator+(const Matrix& other) {
-        Matrix& res(*this);
-        res += other;
-        return res;
+    Matrix& Matrix::operator+(Matrix& other) {
+        Matrix *res = new Matrix(*this);
+        *res += other;
+        //this->print(); printf("\n");//TODO
+        //other.print(); printf("\n");
+        //res->print();
+        return *res;
     }
 
 

@@ -39,7 +39,7 @@ namespace mathTools
         ~Matrix();
 
         /*подмена понятий (перегрузка)*/
-        Matrix& operator=(Matrix other);
+        Matrix& operator=(Matrix& other);
 
         /*подмена понятий (перегрузка)*/
         double*& operator[](int index) const;
@@ -48,7 +48,7 @@ namespace mathTools
         Matrix& operator+=(const Matrix& other);
 
         /*подмена понятий (перегрузка)*/
-        Matrix& operator+(const Matrix& other);
+        Matrix& operator+(Matrix& other);
 
         /*подмена понятий (перегрузка)*/
         Matrix& operator-=(Matrix& other);
