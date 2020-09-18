@@ -1,6 +1,8 @@
 ﻿#include "Matrix.h"
 #include <iostream>
 #include <locale.h>
+#include <iomanip>
+//using namespace std;
 
 namespace mathTools
 {
@@ -184,7 +186,7 @@ namespace mathTools
         Matrix* res = new Matrix(*this);
         *res *= k;
         return *res;
-    }
+    }    
 
     int Matrix::getCols() const{//узнать кол-во столбцов
         return this->cols;
@@ -277,10 +279,34 @@ namespace mathTools
     }
 
     void Matrix::print() { //TODO добавить перегрузку оператора <<
+        
         for (int i = 0; i < this->rows; i++) {
-            for (int j = 0; j < this->cols; j++)
-                printf("%lf ", this->matrix[i][j]);
-            printf("\n");
+            for (int j = 0; j < this->cols; j++) {
+                std::cout << std::resetiosflags(std::ios::scientific) << std::setw(8) << std::setprecision(3) << this->matrix[i][j] << " ";
+            }    
+            std::cout << std::endl;
         }
     }
+
+    std::ostream& operator<< (std::ostream& os, const Matrix& matrix) {
+        //return os << "__" << std::endl;
+        for (int i = 0; i < matrix.getRows(); i++) {
+            for (int j = 0; j < matrix.getCols(); j++) {
+                os << std::resetiosflags(std::ios::scientific) << std::setw(8) << std::setprecision(3) << matrix[i][j] << " ";
+            }
+            os << std::endl;
+        }
+        return os;
+    }
 }
+
+//std::ostream& operator<< (std::ostream& os, Matrix& matrix) {
+//    //os << /* the formatted data of rhs you want to print */;
+//    for (int i = 0; i < matrix.getRows(); i++) {
+//        for (int j = 0; j < matrix.getCols(); j++) {
+//            os << resetiosflags(ios::scientific) << setw(8) << setprecision(3) << matrix[i][j] << " ";
+        //}
+//        os << endl;
+//    }
+//    return os;
+//}

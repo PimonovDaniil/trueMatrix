@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Matrix/Matrix.h"
 using namespace mathTools;
+using namespace std;
 
 
 int main()
@@ -14,7 +15,7 @@ int main()
     for (int i = 0; i < 3; i++) {
         a1[i] = new double[3];
     }
-    a1[0][0] = 4; a1[0][1] = 1; a1[0][2] = 0;
+    a1[0][0] = 4; a1[0][1] = 1.405340503460; a1[0][2] = 0;
     a1[1][0] = 3; a1[1][1] = 2; a1[1][2] = 1;
     a1[2][0] = 0; a1[2][1] = 1; a1[2][2] = 0;
 
@@ -38,9 +39,10 @@ int main()
 
     Matrix c;
     c = a * 2;
-    c.print(); printf("\n");
+    /*c.print(); printf("\n");
     a.print(); printf("\n");
-    b.print(); printf("\n");
+    b.print(); printf("\n");*/
+    cout << c << endl << a << endl << b;
 
 
 }

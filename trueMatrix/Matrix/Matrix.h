@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <iostream>
 namespace mathTools
 {
 
@@ -35,6 +35,8 @@ namespace mathTools
         Matrix& operator-(Matrix& other);
         Matrix& operator*(Matrix& other);
         Matrix& operator*(double k);
+     
+        
 
         int getCols() const; //узнать кол-во столбцов
         int getRows() const; //узнать кол-во рядов
@@ -52,5 +54,8 @@ namespace mathTools
         double getMin(); //вернуть минимальный элемент
 
         void print(); //TODO добавить перегрузку оператора <<
+
+        friend std::ostream& operator<< (std::ostream& os, const Matrix& matrix);
 	};
 }
+
