@@ -15,7 +15,7 @@ namespace mathTools
         double** matrix;
         static int num;
         
-        void init(int rows, int cols, double** matrix);/*инициализация (создание дубликата матрицы)*/
+        void init(int rows, int cols,    double** matrix);/*инициализация (создание дубликата матрицы)*/
         void copy(const Matrix& other);/*копирование объекта матрица*/
 
     public:
@@ -33,12 +33,12 @@ namespace mathTools
         Matrix& operator=(const Matrix& other);
         double*& operator[](int index) const;
         Matrix& operator+=(const Matrix& other);
-        Matrix& operator-=(Matrix& other);
+        Matrix& operator-=(const Matrix& other);
         Matrix& operator*=(double k);
-        Matrix& operator*=(Matrix& other);
-        Matrix operator+(Matrix& other);
-        Matrix operator-(Matrix& other);
-        Matrix operator*(Matrix& other);
+        Matrix& operator*=(const Matrix& other);
+        Matrix operator+(const Matrix& other);
+        Matrix operator-(const Matrix& other);
+        Matrix operator*(const Matrix& other);
         Matrix operator*(double k);
      
         
@@ -52,7 +52,7 @@ namespace mathTools
         заполняются нулями. */
         void setLength(int rows, int cols);
 
-        bool isMultiply(Matrix other); //проверка на возможность умножения
+        bool isMultiply(const Matrix& other); //проверка на возможность умножения
         bool isSum(const Matrix& other); //проверка на возможность сложения/вычитания
 
         double getMax(); //вернуть максимальный элемент
@@ -62,9 +62,8 @@ namespace mathTools
 	};
 
 
-    /*класс в котором хранятся настройки формата вывода 
-    матрицы на экран. Невозможно создать больше одного 
-    объекта этого класса(при отстутствии многопоточности)*/
+    /*класс в котором хранятся настройки
+    формата вывода матрицы на экран. */
     class settings
     {
     private:

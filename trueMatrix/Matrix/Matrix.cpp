@@ -132,7 +132,7 @@ namespace mathTools
         return *this;
     }
 
-    Matrix& Matrix::operator*=(Matrix& other) {
+    Matrix& Matrix::operator*=(const Matrix& other) {
         if (this->isMultiply(other)) {
             double** newMatrix = new double* [this->rows];
             for (int i = 0; i < this->rows; i++) {
@@ -159,7 +159,7 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator-=(Matrix& other) {
+    Matrix& Matrix::operator-=(const Matrix& other) {
         if (this->isSum(other)) {
             for (int i = 0; i < this->rows; i++)
                 for (int j = 0; j < this->cols; j++)
@@ -172,21 +172,21 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix Matrix::operator+(Matrix& other) {
+    Matrix Matrix::operator+(const Matrix& other) {
         Matrix res(*this);
         res += other;
         return res;
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix Matrix::operator-(Matrix& other) {
+    Matrix Matrix::operator-(const Matrix& other) {
         Matrix res(*this);
         res -= other;
         return res;
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix Matrix::operator*(Matrix& other) {
+    Matrix Matrix::operator*(const Matrix& other) {
         Matrix res(*this);
         res *= other;
         return res;
@@ -253,7 +253,7 @@ namespace mathTools
         }
     }
 
-    bool Matrix::isMultiply(Matrix other) {
+    bool Matrix::isMultiply(const Matrix& other) {
         return (other.getRows() == this->cols) ? true : false;
     }
 

@@ -3,10 +3,18 @@
 //
 #include <locale.h>
 #include <iostream>
+#include <ctime>
 #include "Matrix/Matrix.h"
 using namespace mathTools;
 using namespace std;
 
+Matrix getRandomSquareMatrix(int k/*размер*/) { //для демонстрации и отладки
+    Matrix m(k);
+    for (int i = 0; i < k; i++) 
+        for (int j = 0; j < k; j++)
+            m[i][j] = rand() % 10;
+    return m;
+}
 
 int main()
 {
@@ -15,35 +23,71 @@ int main()
 
     /*настройка формата вывода матрицы*/
     Matrix::setting->setPrecision(3); //устанавливает точность
-    Matrix::setting->setSetw(8); //Устанавливает ширину поля
+    Matrix::setting->setSetw(3); //Устанавливает ширину поля
 
-    /*инициализируем новую матрицу*/
-    double** a1 = new double* [3];
-    for (int i = 0; i < 3; i++) {
+    /*первый вариант инициализации матрицы(через двумерный динамический массив)*/
+    double** a1 = new double* [2];
+    for (int i = 0; i < 2; i++) {
         a1[i] = new double[3];
     }
-    a1[0][0] = 4; a1[0][1] = 1.405340503460; a1[0][2] = 0;
-    a1[1][0] = 3; a1[1][1] = 2; a1[1][2] = 1;
-    a1[2][0] = 0; a1[2][1] = 1; a1[2][2] = 0;
-
-    Matrix a(3, 3, a1);
-    a.setLength(2, 2);
-    cout << a << endl;
-
-    /*инициализируем новую матрицу*/
-    double** b1 = new double* [2];
+    a1[0][0] = 2; a1[0][1] = 0; a1[0][2] = -1;
+    a1[1][0] = 0; a1[1][1] = -2; a1[1][2] = 2;
+    Matrix a(2, 3, a1);
     for (int i = 0; i < 2; i++) {
-        b1[i] = new double[3];
+        delete[] a1[i];
     }
-    b1[0][0] = 2; b1[0][1] = 0;  b1[0][2] = -1;
-    b1[1][0] = 0; b1[1][1] = -2; b1[1][2] = 2;
+    delete[] a1;
 
-    Matrix b(2, 3, b1);
-    b.setLength(2, 2);
-    cout << b << endl;
+    /*второй вариант инициализации матрицы*/
+    Matrix b(3, 3);
+    b[0][0] = 4; b[0][1] = 1; b[0][2] = 0;
+    b[1][0] = 3; b[1][1] = 2; b[1][2] = 1;
+    b[2][0] = 0; b[2][1] = 1; b[2][2] = 0;
 
-    Matrix c;
-    c =  a * 2;
-    Matrix x(b);
-    cout << c << endl << a << endl << b;
+    cout << "I. С помощью функций-элементов класса обеспечить:" << endl;
+    cout << "  есть матрица А:\n" << a << "  есть матрица B:\n" << b;
+    cout << "  1) проверку возможности умножения двух матриц;\n";
+    cout << "\tA * B: " << ((a.isMultiply(b)) ? "TRUE" : "FALSE") << endl;
+    cout << "\tB * A: " << ((b.isMultiply(a)) ? "TRUE" : "FALSE") << endl;
+    cout << "  2) проверку возможности сложения двух матриц;\n";
+    cout << "\tA + B: " << ((b.isSum(a)) ? "TRUE" : "FALSE") << endl;
+    cout << "  3) максимального элемента матрицы;\n";
+    cout << "\tмаксимальный элемент матрицы А: " << a.getMax() << endl;
+    cout << "  4) минимального элемента матрицы.\n";
+    cout << "\tминимальный элемент матрицы А: " << a.getMin() << endl;
+    //cout << getRandomSquareMatrix();
+
+    cout << "\nматематические действия над матрицами A и B\nбез получения новых матриц, т.е.переопределить\nоператоры\n";
+    cout << "а) A = B;";
+    a = getRandomSquareMatrix(3); b = getRandomSquareMatrix(3);
+    cout << "\n  пусть матрица А:\n" << a << "\n  пусть матрица B:\n" << b << endl;
+    a = b;
+    cout << "  А = B" << endl;
+    cout << "  матрица А:\n" << a << "\n  матрица B:\n" << b;
+    cout << "\nб) A += B;";
+    a = getRandomSquareMatrix(2); b = getRandomSquareMatrix(2);
+    cout << "\n  пусть матрица А:\n" << a << "\n  пусть матрица B:\n" << b << endl;
+    a += b;
+    cout << "  А += B" << endl;
+    cout << "  матрица А:\n" << a << "\n  матрица B:\n" << b;
+    cout << "\nв) A -= B;";
+    a = getRandomSquareMatrix(4); b = getRandomSquareMatrix(4);
+    cout << "\n  пусть матрица А:\n" << a << "\n  пусть матрица B:\n" << b << endl;
+    a -= b;
+    cout << "  А -= B" << endl;
+    cout << "  матрица А:\n" << a << "\n  матрица B:\n" << b;
+    cout << "\nг) A *= B;";
+    a = getRandomSquareMatrix(2); b = getRandomSquareMatrix(2);
+    cout << "\n  пусть матрица А:\n" << a << "\n  пусть матрица B:\n" << b << endl;
+    a *= b;
+    cout << "  А *= B" << endl;
+    cout << "  матрица А:\n" << a << "\n  матрица B:\n" << b;
+
+    cout << "\nд) а также A *= k – умножение матрицы на скаляр";
+    a = getRandomSquareMatrix(2); b = getRandomSquareMatrix(2);
+    cout << "\n  пусть матрица А:\n" << a << endl;
+    a *= 2.5;
+    cout << "  А *= 2.5" << endl;
+    cout << "  матрица А:\n" << a;
+
 }
