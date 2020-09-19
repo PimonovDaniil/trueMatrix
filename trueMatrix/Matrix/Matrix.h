@@ -33,10 +33,10 @@ namespace mathTools
         Matrix& operator-=(Matrix& other);
         Matrix& operator*=(double k);
         Matrix& operator*=(Matrix& other);
-        Matrix& operator+(Matrix& other);
-        Matrix& operator-(Matrix& other);
-        Matrix& operator*(Matrix& other);
-        Matrix& operator*(double k);
+        Matrix operator+(Matrix& other);
+        Matrix operator-(Matrix& other);
+        Matrix operator*(Matrix& other);
+        Matrix operator*(double k);
      
         
 

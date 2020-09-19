@@ -38,10 +38,14 @@ int main()
     cout << b << endl;
 
     Matrix c;
-    c = (a * 2);
+    /*c = */ (a * b);
     Matrix x(b);
     cout << c << endl << a << endl << b;
+    
 
+    //for (int i = 0; i <= 10; i++) {
+    //    std::cout << a + b << std::endl;
+    //}
 
 }
 

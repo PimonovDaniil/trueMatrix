@@ -36,10 +36,6 @@ namespace mathTools
 
     /*копирование объекта матрица*/
     void Matrix::copy(Matrix& other){
-        /*выкидываем за собой мусор*/
-        for (int i = 0; i < this->rows; i++)
-            delete[] this->matrix[i];
-        delete[] this->matrix;
 
         this->cols = other.cols;
         this->rows = other.rows;
@@ -175,31 +171,31 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator+(Matrix& other) {
-        Matrix *res = new Matrix(*this);
-        *res += other;
-        return *res;
+    Matrix Matrix::operator+(Matrix& other) {
+        Matrix res(*this);
+        res += other;
+        return res;
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator-(Matrix& other) {
-        Matrix* res = new Matrix(*this);
-        *res -= other;
-        return *res;
+    Matrix Matrix::operator-(Matrix& other) {
+        Matrix res(*this);
+        res -= other;
+        return res;
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator*(Matrix& other) {
-        Matrix* res = new Matrix(*this);
-        *res *= other;
-        return *res;
+    Matrix Matrix::operator*(Matrix& other) {
+        Matrix res(*this);
+        res *= other;
+        return res;
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator*(double k) {
-        Matrix* res = new Matrix(*this);
-        *res *= k;
-        return *res;
+    Matrix Matrix::operator*(double k) {
+        Matrix res(*this);
+        res *= k;
+        return res;
     }    
 
     int Matrix::getCols() const{//узнать кол-во столбцов
