@@ -35,7 +35,7 @@ namespace mathTools
     }
 
     /*копирование объекта матрица*/
-    void Matrix::copy(Matrix& other){
+    void Matrix::copy(const Matrix& other){
 
         this->cols = other.cols;
         this->rows = other.rows;
@@ -97,7 +97,7 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    Matrix& Matrix::operator=(Matrix& other) 
+    Matrix& Matrix::operator=(const Matrix& other) 
     {
         // Проверка на самоприсваивание
         if (this != &other) copy(other);

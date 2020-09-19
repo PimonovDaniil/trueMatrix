@@ -11,7 +11,7 @@ using namespace std;
 int main()
 {
     setlocale(LC_CTYPE, "RUSSIAN");
-    Matrix::debug = true;
+    Matrix::debug = false;
     /*инициализируем новую матрицу*/
     double** a1 = new double* [3];
     for (int i = 0; i < 3; i++) {
@@ -38,7 +38,7 @@ int main()
     cout << b << endl;
 
     Matrix c;
-    /*c = */ (a * b);
+    c =  a * 2;
     Matrix x(b);
     cout << c << endl << a << endl << b;
     

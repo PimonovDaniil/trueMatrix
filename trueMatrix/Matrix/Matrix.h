@@ -13,7 +13,7 @@ namespace mathTools
         static int num;
         
         void init(int rows, int cols, double** matrix);/*инициализация (создание дубликата матрицы)*/
-        void copy(Matrix& other);/*копирование объекта матрица*/
+        void copy(const Matrix& other);/*копирование объекта матрица*/
 
     public:
         static bool debug;
@@ -27,7 +27,7 @@ namespace mathTools
         ~Matrix();/*деструктор*/
 
         /*подмена понятий (перегрузка)*/
-        Matrix& operator=(Matrix& other);
+        Matrix& operator=(const Matrix& other);
         double*& operator[](int index) const;
         Matrix& operator+=(const Matrix& other);
         Matrix& operator-=(Matrix& other);
