@@ -3,8 +3,11 @@
 namespace mathTools
 {
 
+    class settings;
+
 	class Matrix
 	{
+        friend std::ostream& operator<< (std::ostream& os, const Matrix& matrix);
     private:
         int rows;
         int cols;
@@ -16,8 +19,8 @@ namespace mathTools
         void copy(const Matrix& other);/*копирование объекта матрица*/
 
     public:
+        static settings* setting;
         static bool debug;
-        
         Matrix(); /*конструктор  без параметров*/
         Matrix(int rows, int cols, double** matrix); /*принимает матрицу с размерами rows cols*/
         Matrix(int rows, int cols);/*матрица размеров rows cols заполненная нулями*/
@@ -39,7 +42,7 @@ namespace mathTools
         Matrix operator*(double k);
      
         
-
+        static settings* settings();
         int getCols() const; //узнать кол-во столбцов
         int getRows() const; //узнать кол-во рядов
 
@@ -57,5 +60,24 @@ namespace mathTools
 
         friend std::ostream& operator<< (std::ostream& os, const Matrix& matrix);
 	};
-}
 
+
+    /*класс в котором хранятся настройки формата вывода 
+    матрицы на экран. Невозможно создать больше одного 
+    объекта этого класса(при отстутствии многопоточности)*/
+    class settings
+    {
+    private:
+        int setw;
+        int precision;
+        static settings* uniqueInstance;
+        settings(); 
+
+    public:
+        static settings* create();
+        void setSetw(int s);
+        void setPrecision(int p);
+        int getSetw();
+        int getPrecision();
+    };
+}

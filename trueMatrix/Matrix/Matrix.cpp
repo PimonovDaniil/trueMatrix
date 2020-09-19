@@ -2,11 +2,12 @@
 #include <iostream>
 #include <locale.h>
 #include <iomanip>
-//using namespace std;
 
 namespace mathTools
 {
     bool Matrix::debug = false;
+    settings* settings::uniqueInstance = nullptr;
+    settings* Matrix::setting = settings::create();
     int Matrix::num = 0; //начальное кол-во объектов класса
 
     /*инициализация (создание дубликата матрицы)*/
@@ -274,6 +275,10 @@ namespace mathTools
         }
     }
 
+    settings* Matrix::settings() {
+        return Matrix::setting;
+    }
+
     double Matrix::getMin() {
         if ((this->rows > 0) && (this->cols > 0)) {
             double min = matrix[0][0];
@@ -292,10 +297,43 @@ namespace mathTools
         //return os << "__" << std::endl;
         for (int i = 0; i < matrix.getRows(); i++) {
             for (int j = 0; j < matrix.getCols(); j++) {
-                os << std::setw(8) << std::setprecision(3) << matrix[i][j] << " ";
+                os << std::setw(matrix.setting->getSetw()) << std::setprecision(matrix.setting->getPrecision()) << matrix[i][j] << " ";
             }
             os << std::endl;
         }
         return os;
     }
+
+    settings::settings() {
+        this->setw = 8;
+        this->precision = 3;
+    }
+
+    settings* settings::create() {
+        if (settings::uniqueInstance == nullptr) {//пофиксить при многопоточности
+            settings::uniqueInstance = new settings();
+        }
+        return settings::uniqueInstance;
+    }
+
+    void settings::setSetw(int s)
+    {
+        this->setw = s;
+    }
+
+    void settings::setPrecision(int p)
+    {
+        this->precision = p;
+    }
+
+    int settings::getSetw()
+    {
+        return this->setw;
+    }
+
+    int settings::getPrecision()
+    {
+        return this->precision;
+    }
 }
+
