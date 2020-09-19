@@ -7,9 +7,11 @@
 namespace mathTools
 {
     bool Matrix::debug = false;
+    int Matrix::num = 0; //начальное кол-во объектов класса
 
     /*инициализация (создание дубликата матрицы)*/
     void Matrix::init(int rows, int cols, double** matrix) {
+        this->numObj = ++this->num;
         this->rows = rows; this->cols = cols;
         if ((rows > 0) && (cols > 0)) {
             double** newMatrix = new double* [rows];
@@ -35,9 +37,10 @@ namespace mathTools
     /*копирование объекта матрица*/
     void Matrix::copy(Matrix& other){
         /*выкидываем за собой мусор*/
-        /*for (int i = 0; i < this->rows; i++)
+        for (int i = 0; i < this->rows; i++)
             delete[] this->matrix[i];
-        delete[] this->matrix;*/
+        delete[] this->matrix;
+
         this->cols = other.cols;
         this->rows = other.rows;
 
@@ -54,37 +57,38 @@ namespace mathTools
     /*конструктор  без параметров*/
     Matrix::Matrix() {
         init(0, 0, nullptr);
-        if (debug) printf("конструктор 1\n");
+        if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор 1)" << std::endl;
     }
 
     /*принимает матрицу с размерами rows cols*/
     Matrix::Matrix(int rows, int cols, double** matrix) {
         init(rows, cols, matrix);
-        if (debug) printf("конструктор 2\n");
+        if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор 2)" << std::endl;
     }
 
     /*матрица размеров rows cols заполненная нулями*/
     Matrix::Matrix(int rows, int cols) {
         init(rows, cols, nullptr);
-        if (debug) printf("конструктор 3\n");
+        if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор 3)" << std::endl;
     }
 
     /*принимает квадратную матрицу*/
     Matrix::Matrix(int square, double** matrix) {
         init(square, square, matrix);
-        if (debug) printf("конструктор 4\n");
+        if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор 4)" << std::endl;
     }
 
     /*матрица размера square^2 заполненная нулями*/
     Matrix::Matrix(int square) {
         init(square, square, nullptr);
-        if (debug) printf("конструктор 5\n");
+        if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор 5)" << std::endl;
     }
 
     /*конструктор копирования*/
     Matrix::Matrix(Matrix& other) {
+        this->numObj = ++this->num;
         copy(other);
-        if (debug) printf("конструктор копирования\n");
+        if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор копирования)" << std::endl;
     }
 
     /*деструктор*/
@@ -93,7 +97,7 @@ namespace mathTools
         for (int i = 0; i < this->rows; i++)
             delete[] this->matrix[i];
         delete[] this->matrix;
-        if (debug) printf("деструктор\n");
+        if (debug) std::cout << "(матрица " << this->numObj << ", " << "деструтор)" << std::endl;
     }
 
     /*подмена понятий (перегрузка)*/
@@ -101,6 +105,7 @@ namespace mathTools
     {
         // Проверка на самоприсваивание
         if (this != &other) copy(other);
+        //delete &other;
         return *this;
     }
 
@@ -291,7 +296,7 @@ namespace mathTools
         //return os << "__" << std::endl;
         for (int i = 0; i < matrix.getRows(); i++) {
             for (int j = 0; j < matrix.getCols(); j++) {
-                os << std::resetiosflags(std::ios::scientific) << std::setw(8) << std::setprecision(3) << matrix[i][j] << " ";
+                os << std::setw(8) << std::setprecision(3) << matrix[i][j] << " ";
             }
             os << std::endl;
         }

@@ -8,7 +8,9 @@ namespace mathTools
     private:
         int rows;
         int cols;
+        int numObj;
         double** matrix;
+        static int num;
         
         void init(int rows, int cols, double** matrix);/*инициализация (создание дубликата матрицы)*/
         void copy(Matrix& other);/*копирование объекта матрица*/
