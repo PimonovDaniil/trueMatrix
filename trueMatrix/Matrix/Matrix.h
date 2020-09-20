@@ -31,7 +31,8 @@ namespace mathTools
 
         /*подмена понятий (перегрузка)*/
         Matrix& operator=(const Matrix& other);
-        double*& operator[](int index) const;
+        double*& operator[](const int index);
+        const double* operator[](const int index) const;
         Matrix& operator+=(const Matrix& other);
         Matrix& operator-=(const Matrix& other);
         Matrix& operator*=(double k);

@@ -107,8 +107,13 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    double*& Matrix::operator[](int index) const{
+    double*& Matrix::operator[](const int index){
        return this->matrix[index];//TODO сделать проверку индексов
+    }
+
+    const double* Matrix::operator[](const int index) const
+    {
+        return this->matrix[index];//TODO сделать проверку индексов
     }
 
     /*подмена понятий (перегрузка)*/
