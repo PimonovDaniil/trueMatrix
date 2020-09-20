@@ -1,6 +1,6 @@
 ﻿
 // trueMatrix.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+//https://github.com/PimonovDaniil/trueMatrix
 #include <locale.h>
 #include <iostream>
 #include <ctime>
