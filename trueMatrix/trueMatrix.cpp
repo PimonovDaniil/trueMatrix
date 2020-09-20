@@ -23,7 +23,7 @@ int main()
 
     /*настройка формата вывода матрицы*/
     Matrix::setting->setPrecision(3); //устанавливает точность
-    Matrix::setting->setSetw(3); //Устанавливает ширину поля
+    Matrix::setting->setSetw(5); //Устанавливает ширину поля
 
     /*первый вариант инициализации матрицы(через двумерный динамический массив)*/
     double** a1 = new double* [2];
@@ -67,27 +67,42 @@ int main()
     cout << "\nб) A += B;";
     a = getRandomSquareMatrix(2); b = getRandomSquareMatrix(2);
     cout << "\n  пусть матрица А:\n" << a << "\n  пусть матрица B:\n" << b << endl;
-    a += b;
+    if (a.isSum(b)) a += b;
     cout << "  А += B" << endl;
     cout << "  матрица А:\n" << a << "\n  матрица B:\n" << b;
     cout << "\nв) A -= B;";
     a = getRandomSquareMatrix(4); b = getRandomSquareMatrix(4);
     cout << "\n  пусть матрица А:\n" << a << "\n  пусть матрица B:\n" << b << endl;
-    a -= b;
+    if (a.isSum(b)) a -= b;
     cout << "  А -= B" << endl;
     cout << "  матрица А:\n" << a << "\n  матрица B:\n" << b;
     cout << "\nг) A *= B;";
     a = getRandomSquareMatrix(2); b = getRandomSquareMatrix(2);
     cout << "\n  пусть матрица А:\n" << a << "\n  пусть матрица B:\n" << b << endl;
-    a *= b;
+    if (a.isMultiply(b)) a *= b;
     cout << "  А *= B" << endl;
     cout << "  матрица А:\n" << a << "\n  матрица B:\n" << b;
-
     cout << "\nд) а также A *= k – умножение матрицы на скаляр";
     a = getRandomSquareMatrix(2); b = getRandomSquareMatrix(2);
     cout << "\n  пусть матрица А:\n" << a << endl;
     a *= 2.5;
     cout << "  А *= 2.5" << endl;
-    cout << "  матрица А:\n" << a;
+    cout << "  матрица А:\n" << a << endl;
 
+    Matrix c;
+    cout << "III. C помощью внешних операторов обеспечить \nдвуместные операции над матрицами A и B\nс получением новой матрицы C:" << endl;
+    a = getRandomSquareMatrix(4); b = getRandomSquareMatrix(4);
+    cout << "  есть матрица А:\n" << a << "  есть матрица B:\n" << b;
+    cout << "1) сложение (C = A + B);" << endl << "  матрица C:" << endl;
+    if(a.isSum(b)) c = a + b;
+    cout << c;
+    cout << "2) вычитание (C = A – B);" << endl << "  матрица C:" << endl;
+    if (a.isSum(b)) c = a - b;
+    cout << c;
+    cout << "3) произведение (С = A * B);" << endl << "  матрица C:" << endl;
+    if (a.isMultiply(b)) c = a * b;
+    cout << c;
+    cout << "4) умножение матрицы на скаляр (С = A * 3.1)." << endl << "  матрица C:" << endl;
+    c = a * 3.1;
+    cout << c;
 }

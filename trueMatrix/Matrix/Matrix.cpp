@@ -77,7 +77,7 @@ namespace mathTools
 
     /*матрица размера square^2 заполненная нулями*/
     Matrix::Matrix(int square) {
-        init(square, square, nullptr);
+        init(square , square, nullptr);
         if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор 5)" << std::endl;
     }
 
