@@ -254,11 +254,11 @@ namespace mathTools
     }
 
     bool Matrix::isMultiply(const Matrix& other) {
-        return (other.getRows() == this->cols) ? true : false;
+        return ((other.getRows() == this->cols) && (other.getRows() != 0) && (other.getCols() != 0) && (this->cols != 0) && (this->rows != 0)) ? true : false;
     }
 
     bool Matrix::isSum(const Matrix& other) {
-        return ((this->cols == other.getCols()) && (this->rows == other.getRows())) ? true : false;
+        return ((this->cols == other.getCols()) && (this->rows == other.getRows()) && (other.getRows() != 0) && (other.getCols() != 0) && (this->cols != 0) && (this->rows != 0)) ? true : false;
     }
 
     double Matrix::getMax() {
