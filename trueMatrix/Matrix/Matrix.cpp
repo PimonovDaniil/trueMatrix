@@ -125,14 +125,12 @@ namespace mathTools
 
     /*подмена понятий (перегрузка)*/
     Matrix& Matrix::operator+=(const Matrix& other) {
-        if (this->isSum(other)) {
-            for (int i = 0; i < this->rows; i++)
-                for (int j = 0; j < this->cols; j++)
-                    this->matrix[i][j] = this->matrix[i][j]+other[i][j];
-        }
-        else {
-            throw "Вычитание невозможно";
-        }
+        if (this->isSum(other) == false)
+            throw "Вычитание невозможно"; 
+        for (int i = 0; i < this->rows; i++)
+            for (int j = 0; j < this->cols; j++)
+                this->matrix[i][j] = this->matrix[i][j] + other[i][j];
+
         return *this;
     }
 
@@ -145,41 +143,38 @@ namespace mathTools
     }
 
     Matrix& Matrix::operator*=(const Matrix& other) {
-        if (this->isMultiply(other)) {
-            double** newMatrix = new double* [this->rows];
-            for (int i = 0; i < this->rows; i++) {
-                newMatrix[i] = new double[other.getCols()];
-            }
-
-            for (int i = 0; i < this->rows; i++)
-                for (int j = 0; j < other.getCols(); j++) {
-                    newMatrix[i][j] = 0.0;
-                    for (int k = 0; k < this->cols; k++) {
-                        newMatrix[i][j] += (this->matrix[i][k] * other[k][j]);
-                    }   
-                }
-            for (int i = 0; i < this->rows; i++)
-                delete[] this->matrix[i];
-            delete[] this->matrix;
-            this->cols = other.getCols();
-            matrix = newMatrix;
-        }
-        else {
+        if (this->isMultiply(other) == false) 
             throw "Вычитание невозможно";
+        double** newMatrix = new double* [this->rows];
+        for (int i = 0; i < this->rows; i++) {
+            newMatrix[i] = new double[other.getCols()];
         }
+
+        for (int i = 0; i < this->rows; i++)
+            for (int j = 0; j < other.getCols(); j++) {
+                newMatrix[i][j] = 0.0;
+                for (int k = 0; k < this->cols; k++) {
+                    newMatrix[i][j] += (this->matrix[i][k] * other[k][j]);
+                }
+            }
+        for (int i = 0; i < this->rows; i++)
+            delete[] this->matrix[i];
+        delete[] this->matrix;
+        this->cols = other.getCols();
+        matrix = newMatrix;
+
         return *this;
     }
 
     /*подмена понятий (перегрузка)*/
     Matrix& Matrix::operator-=(const Matrix& other) {
-        if (this->isSum(other)) {
-            for (int i = 0; i < this->rows; i++)
-                for (int j = 0; j < this->cols; j++)
-                    this->matrix[i][j] -= other[i][j];
-        }
-        else {
+        if (this->isSum(other) == false) 
             throw "Вычитание невозможно";
-        }
+     
+        for (int i = 0; i < this->rows; i++)
+            for (int j = 0; j < this->cols; j++)
+                this->matrix[i][j] -= other[i][j];
+        
         return *this;
     }
 
@@ -266,11 +261,11 @@ namespace mathTools
     }
 
     bool Matrix::isMultiply(const Matrix& other) {
-        return ((other.getRows() == this->cols) && (other.getRows() != 0) && (other.getCols() != 0) && (this->cols != 0) && (this->rows != 0)) ? true : false;
+        return (this->matrix != nullptr && other.matrix != nullptr && this->cols == other.rows) ? true : false;
     }
 
     bool Matrix::isSum(const Matrix& other) {
-        return ((this->cols == other.getCols()) && (this->rows == other.getRows()) && (other.getRows() != 0) && (other.getCols() != 0) && (this->cols != 0) && (this->rows != 0)) ? true : false;
+        return ((this->cols == other.getCols()) && (this->rows == other.getRows()) && (other.matrix != nullptr)) ? true : false;
     }
 
     double Matrix::getMax() {

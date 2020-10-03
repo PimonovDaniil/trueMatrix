@@ -25,10 +25,10 @@ int main()
     Matrix::setting->setPrecision(3); //устанавливает точность
     Matrix::setting->setSetw(5); //Устанавливает ширину поля
 
-    const Matrix test(3);
-    //test[0][0] = 5;
-    cout << test[0][0] << endl;
-    cout << test;
+    //const Matrix test(3);
+    ////test[0][0] = 5;
+    //cout << test[0][0] << endl;
+    //cout << test;
 
     /*первый вариант инициализации матрицы(через двумерный динамический массив)*/
     double** a1 = new double* [2];
