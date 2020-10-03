@@ -38,13 +38,19 @@ namespace mathTools
     /*копирование объекта матрица*/
     void Matrix::copy(const Matrix& other){
 
+        if (this->matrix == nullptr) {
+            for (int i = 0; i < this->rows; i++)
+                delete[] this->matrix[i];
+            delete[] this->matrix;
+        }
+
         this->cols = other.cols;
         this->rows = other.rows;
 
         this->matrix = new double* [this->rows];
         for (int i = 0; i < this->rows; i++) {
             this->matrix[i] = new double[this->cols];
-        }
+        } 
 
         for (int i = 0; i < this->rows; i++)
             for (int j = 0; j < this->cols; j++)
@@ -83,6 +89,7 @@ namespace mathTools
 
     /*конструктор копирования*/
     Matrix::Matrix(Matrix& other) {
+        this->matrix = nullptr;
         this->numObj = ++this->num;
         copy(other);
         if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор копирования)" << std::endl;
