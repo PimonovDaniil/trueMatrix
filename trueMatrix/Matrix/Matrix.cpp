@@ -19,14 +19,22 @@ namespace mathTools
             for (int i = 0; i < rows; i++) {
                 newMatrix[i] = new double[cols];
             }
-            for (int i = 0; i < rows; i++)
+
+            /*for (int i = 0; i < rows; i++) //стильно, модно
                 for (int j = 0; j < cols; j++)
-                    if (matrix != nullptr) {
+                    newMatrix[i][j] = (matrix != nullptr) ? matrix[i][j] : 0;*/
+
+            if (matrix != nullptr) { // быстро круто
+                for (int i = 0; i < rows; i++)
+                    for (int j = 0; j < cols; j++)
                         newMatrix[i][j] = matrix[i][j];
-                    }
-                    else {
+            }
+            else {
+                for (int i = 0; i < rows; i++)
+                    for (int j = 0; j < cols; j++)
                         newMatrix[i][j] = 0;
-                    }
+            }
+                    
 
             this->matrix = newMatrix;
         }
