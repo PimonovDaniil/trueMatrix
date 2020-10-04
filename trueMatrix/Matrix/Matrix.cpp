@@ -13,34 +13,23 @@ namespace mathTools
     /*инициализация (создание дубликата матрицы)*/
     void Matrix::init(int rows, int cols, double** matrix) {
         this->numObj = ++this->num;
+
+        if (rows * cols == 0) {
+            this->rows = this->cols = 0;
+            matrix = nullptr;
+            return;
+        }
+
         this->rows = rows; this->cols = cols;
-        if ((rows > 0) && (cols > 0)) {
-            double** newMatrix = new double* [rows];
-            for (int i = 0; i < rows; i++) {
-                newMatrix[i] = new double[cols];
-            }
 
-            /*for (int i = 0; i < rows; i++) //стильно, модно
-                for (int j = 0; j < cols; j++)
-                    newMatrix[i][j] = (matrix != nullptr) ? matrix[i][j] : 0;*/
+        double**& mtx = this->matrix = new double* [rows];
+        for (int i = 0; i < rows; i++) mtx[i] = new double[cols]();
 
-            if (matrix != nullptr) { // быстро круто
-                for (int i = 0; i < rows; i++)
-                    for (int j = 0; j < cols; j++)
-                        newMatrix[i][j] = matrix[i][j];
-            }
-            else {
-                for (int i = 0; i < rows; i++)
-                    for (int j = 0; j < cols; j++)
-                        newMatrix[i][j] = 0;
-            }
-                    
+        if (matrix == nullptr) return;
 
-            this->matrix = newMatrix;
-        }
-        else {
-            this->matrix = nullptr;
-        }
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
+                mtx[i][j] = matrix[i][j];
     }
 
     /*копирование объекта матрица*/
