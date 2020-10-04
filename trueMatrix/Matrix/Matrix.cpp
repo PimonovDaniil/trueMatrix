@@ -38,7 +38,7 @@ namespace mathTools
     /*копирование объекта матрица*/
     void Matrix::copy(const Matrix& other){
 
-        if (this->matrix == nullptr) {
+        if (this->matrix != nullptr) {
             for (int i = 0; i < this->rows; i++)
                 delete[] this->matrix[i];
             delete[] this->matrix;
