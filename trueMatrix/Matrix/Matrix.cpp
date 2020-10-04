@@ -143,12 +143,12 @@ namespace mathTools
         if (this->isMultiply(other) == false) 
             throw "Вычитание невозможно";
         double** newMatrix = new double* [this->rows];
-        for (int i = 0; i < this->rows; i++) {
-            newMatrix[i] = new double[other.getCols()];
-        }
+        for (int i = 0; i < this->rows; i++) 
+            newMatrix[i] = new double[other.cols];
+        
 
         for (int i = 0; i < this->rows; i++)
-            for (int j = 0; j < other.getCols(); j++) {
+            for (int j = 0; j < other.cols; j++) {
                 newMatrix[i][j] = 0.0;
                 for (int k = 0; k < this->cols; k++) {
                     newMatrix[i][j] += (this->matrix[i][k] * other[k][j]);
