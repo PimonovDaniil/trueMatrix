@@ -59,7 +59,8 @@ namespace mathTools
         double getMax(); //вернуть максимальный элемент
         double getMin(); //вернуть минимальный элемент
 
-        friend std::ostream& operator<< (std::ostream& os, const Matrix& matrix);
+      
+
 	};
 
 
