@@ -47,10 +47,10 @@ namespace mathTools
         Matrix& operator+=(const Matrix& other);
         Matrix& operator-=(const Matrix& other);
         Matrix& operator*=(double k);
-        /*Matrix& operator*=(const Matrix& other);*/
+        Matrix& operator*=(const Matrix& other);
         Matrix operator+(const Matrix& other);
         Matrix operator-(const Matrix& other);
-        /*Matrix operator*(const Matrix& other);*/
+        Matrix operator*(const Matrix& other);
         Matrix operator*(double k);
      
         

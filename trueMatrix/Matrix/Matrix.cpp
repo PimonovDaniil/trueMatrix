@@ -130,28 +130,25 @@ namespace mathTools
         return *this;
     }
 
-    /*Matrix& Matrix::operator*=(const Matrix& other) {
+    //this->m_r * this->m_owner->cols + r
+    Matrix& Matrix::operator*=(const Matrix& other) {
         if (this->isMultiply(other) == false) 
             throw "Вычитание невозможно";
-        double** newMatrix = new double* [this->rows];
-        for (int i = 0; i < this->rows; i++) 
-            newMatrix[i] = new double[other.cols];
-        
+        double* newMatrix = new double [this->rows * other.cols];
+
         for (int i = 0; i < this->rows; i++)
             for (int j = 0; j < other.cols; j++) {
-                newMatrix[i][j] = 0.0;
+                newMatrix[/*i][j*/i * this->cols + j] = 0.0;
                 for (int k = 0; k < this->cols; k++) {
-                    newMatrix[i][j] += (this->matrix[i][k] * other[k][j]);
+                    newMatrix[/*i][j*/ i * this->cols + j] += (this->matrix[/*i][k*/ i * this->cols + j] * other.matrix[/*k][j*/ k * this->cols + j]);
                 }
             }
-        for (int i = 0; i < this->rows; i++)
-            delete[] this->matrix[i];
         delete[] this->matrix;
         this->cols = other.getCols();
         matrix = newMatrix;
 
         return *this;
-    }*/
+    }
 
     /*подмена понятий (перегрузка)*/
     Matrix& Matrix::operator-=(const Matrix& other) {
@@ -179,11 +176,11 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    /*Matrix Matrix::operator*(const Matrix& other) {
+    Matrix Matrix::operator*(const Matrix& other) {
         Matrix res(*this);
         res *= other;
         return res;
-    }*/
+    }
 
     /*подмена понятий (перегрузка)*/
     Matrix Matrix::operator*(double k) {
