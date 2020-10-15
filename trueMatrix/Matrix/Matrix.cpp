@@ -32,7 +32,7 @@ namespace mathTools
     }
 
     /*копирование объекта матрица*/
-    /*void Matrix::copy(const Matrix& other){
+    void Matrix::copy(const Matrix& other){
 
         if (this->matrix != nullptr) {
             delete[] this->matrix;
@@ -43,14 +43,10 @@ namespace mathTools
 
         this->matrix = new double [this->rows * this->cols];
 
-        int k = 0;
-        for (int i = 0; i < this->rows; i++)
-            for (int j = 0; j < this->cols; j++) {
-                this->matrix[k] = other[i][j];
-                k++;
-            }
+        for (int i = 0; i < this->rows * this->cols; i++)
+                this->matrix[i] = other.matrix[i];
                 
-    }*/
+    }
 
     /*конструктор  без параметров*/
     Matrix::Matrix() {
@@ -84,12 +80,12 @@ namespace mathTools
     }
 
     /*конструктор копирования*/
-    /*Matrix::Matrix(Matrix& other) {
+    Matrix::Matrix(Matrix& other) {
         this->matrix = nullptr;
         this->numObj = ++this->num;
         copy(other);
         if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор копирования)" << std::endl;
-    }*/
+    }
 
     /*деструктор*/
     Matrix::~Matrix() {
@@ -99,13 +95,13 @@ namespace mathTools
     }
 
     /*подмена понятий (перегрузка)*/
-    //Matrix& Matrix::operator=(const Matrix& other) 
-    //{
-    //    // Проверка на самоприсваивание
-    //    if (this != &other) copy(other);
-    //    //delete &other;
-    //    return *this;
-    //}
+    Matrix& Matrix::operator=(const Matrix& other) 
+    {
+        // Проверка на самоприсваивание
+        if (this != &other) copy(other);
+        //delete &other;
+        return *this;
+    }
 
     /*подмена понятий (перегрузка)*/
     Matrix::MatrixRow Matrix::operator[](const int index){
