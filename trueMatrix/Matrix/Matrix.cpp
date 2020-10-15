@@ -130,10 +130,10 @@ namespace mathTools
         return MatrixRow(this, index);//TODO сделать проверку индексов
     }
 
-    //const double* Matrix::operator[](const int index) const
-    //{
-    //    return this->matrix[index];//TODO сделать проверку индексов
-    //}
+    const Matrix::MatrixRow Matrix::operator[](const int index) const
+    {
+        return MatrixRow(this, index);//TODO сделать проверку индексов
+    }
 
     /*подмена понятий (перегрузка)*/
     Matrix& Matrix::operator+=(const Matrix& other) {
@@ -186,28 +186,28 @@ namespace mathTools
     Matrix Matrix::operator+(const Matrix& other) {
         Matrix res(*this);
         res += other;
-        return res;
+        return std::move(res);
     }
 
     /*подмена понятий (перегрузка)*/
     Matrix Matrix::operator-(const Matrix& other) {
         Matrix res(*this);
         res -= other;
-        return res;
+        return std::move(res);
     }
 
     /*подмена понятий (перегрузка)*/
     Matrix Matrix::operator*(const Matrix& other) {
         Matrix res(*this);
         res *= other;
-        return res;
+        return std::move(res);
     }
 
     /*подмена понятий (перегрузка)*/
     Matrix Matrix::operator*(double k) {
         Matrix res(*this);
         res *= k;
-        return res;
+        return std::move(res);
     }    
 
     int Matrix::getCols() const{//узнать кол-во столбцов

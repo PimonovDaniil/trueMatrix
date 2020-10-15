@@ -25,7 +25,6 @@ namespace mathTools
             unsigned m_r;
         public:
             MatrixRow(const Matrix* owner, unsigned r);
-     
             double operator[] (unsigned r) const;
             double& operator[] (unsigned r);
         };
@@ -46,7 +45,7 @@ namespace mathTools
         Matrix& operator=(const Matrix& other);
         Matrix& operator=(Matrix&& m) noexcept;
         MatrixRow operator[](const int index);
-        //const double* operator[](const int index) const;
+        const MatrixRow operator[](const int index) const;
         Matrix& operator+=(const Matrix& other);
         Matrix& operator-=(const Matrix& other);
         Matrix& operator*=(double k);
