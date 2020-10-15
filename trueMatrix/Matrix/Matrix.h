@@ -7,7 +7,7 @@ namespace mathTools
 
 	class Matrix
 	{
-        //friend std::ostream& operator<< (std::ostream& os, const Matrix& matrix);
+        friend std::ostream& operator<< (std::ostream& os, const Matrix& matrix);
     private:
         int rows;
         int cols;
@@ -17,6 +17,7 @@ namespace mathTools
         
         void init(int rows, int cols,    double* matrix);/*инициализация (создание дубликата матрицы)*/
         void copy(const Matrix& other);/*копирование объекта матрица*/
+        void swap(Matrix& m); /*перемещение*/
 
         class MatrixRow {
         private:
@@ -38,10 +39,12 @@ namespace mathTools
         Matrix(int square, double* matrix);/*принимает квадратную матрицу*/
         Matrix(int square);/*матрица размера square^2 заполненная нулями*/
         Matrix(Matrix& other) ;/*конструктор копирования*/
+        Matrix(Matrix&& m) noexcept;
         ~Matrix();/*деструктор*/
 
         /*подмена понятий (перегрузка)*/
         Matrix& operator=(const Matrix& other);
+        Matrix& operator=(Matrix&& m) noexcept;
         MatrixRow operator[](const int index);
         //const double* operator[](const int index) const;
         Matrix& operator+=(const Matrix& other);

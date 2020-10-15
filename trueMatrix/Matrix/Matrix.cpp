@@ -2,6 +2,7 @@
 #include <iostream>
 #include <locale.h>
 #include <iomanip>
+#include <utility>
 
 namespace mathTools
 {
@@ -48,6 +49,13 @@ namespace mathTools
                 
     }
 
+    void Matrix::swap(Matrix & m)
+    {
+        std::swap(this->rows, m.rows);
+        std::swap(this->cols, m.cols);
+        std::swap(this->matrix, m.matrix);
+    }
+
     /*конструктор  без параметров*/
     Matrix::Matrix() {
         init(0, 0, nullptr);
@@ -87,6 +95,13 @@ namespace mathTools
         if (debug) std::cout << "(матрица " << this->numObj << ", " << "конструктор копирования)" << std::endl;
     }
 
+    Matrix::Matrix(Matrix&& m) noexcept
+    {
+        this->matrix = nullptr;
+        this->numObj = ++this->num;
+        swap(m);
+    }
+
     /*деструктор*/
     Matrix::~Matrix() {
         /*выкидываем за собой мусор*/
@@ -100,6 +115,13 @@ namespace mathTools
         // Проверка на самоприсваивание
         if (this != &other) copy(other);
         //delete &other;
+        return *this;
+    }
+
+    Matrix& Matrix::operator=(Matrix&& m) noexcept
+    {
+        this->numObj = ++this->num;
+        swap(m);
         return *this;
     }
 
@@ -130,7 +152,6 @@ namespace mathTools
         return *this;
     }
 
-    //this->m_r * this->m_owner->cols + r
     Matrix& Matrix::operator*=(const Matrix& other) {
         if (this->isMultiply(other) == false) 
             throw "Вычитание невозможно";
@@ -140,7 +161,7 @@ namespace mathTools
             for (int j = 0; j < other.cols; j++) {
                 newMatrix[/*i][j*/i * this->cols + j] = 0.0;
                 for (int k = 0; k < this->cols; k++) {
-                    newMatrix[/*i][j*/ i * this->cols + j] += (this->matrix[/*i][k*/ i * this->cols + j] * other.matrix[/*k][j*/ k * this->cols + j]);
+                    newMatrix[/*i][j*/ i * this->cols + j] += (this->matrix[/*i][k*/ i * this->cols + k] * other.matrix[/*k][j*/ k * this->cols + j]);
                 }
             }
         delete[] this->matrix;
@@ -236,16 +257,16 @@ namespace mathTools
         }
     }
 
-    //std::ostream& operator<< (std::ostream& os, const Matrix& matrix) {
-    //    //return os << "__" << std::endl;
-    //    for (int i = 0; i < matrix.getRows(); i++) {
-    //        for (int j = 0; j < matrix.getCols(); j++) {
-    //            os << std::setw(matrix.setting->getSetw()) << std::setprecision(matrix.setting->getPrecision()) << matrix[i][j] << " ";
-    //        }
-    //        os << std::endl;
-    //    }
-    //    return os;
-    //}
+    std::ostream& operator<< (std::ostream& os, const Matrix& matrix) {
+        //return os << "__" << std::endl;
+        for (int i = 0; i < matrix.getRows(); i++) {
+            for (int j = 0; j < matrix.getCols(); j++) {
+                os << std::setw(matrix.setting->getSetw()) << std::setprecision(matrix.setting->getPrecision()) << matrix.matrix[/*i][j*/i * matrix.cols + j] << " ";
+            }
+            os << std::endl;
+        }
+        return os;
+    }
 
     settings::settings() {
         this->setw = 8;
