@@ -65,9 +65,7 @@ namespace mathTools
 
         double getMax(); //вернуть максимальный элемент
         double getMin(); //вернуть минимальный элемент
-
-      
-
+        double at(int i, int j);
 	};
 
 

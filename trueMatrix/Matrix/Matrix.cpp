@@ -127,11 +127,13 @@ namespace mathTools
 
     /*подмена понятий (перегрузка)*/
     Matrix::MatrixRow Matrix::operator[](const int index){
+        if((index<0) || (index >= this->rows)) throw "выход за границы";
         return MatrixRow(this, index);//TODO сделать проверку индексов
     }
 
     const Matrix::MatrixRow Matrix::operator[](const int index) const
     {
+        if ((index < 0) || (index >= this->rows)) throw "выход за границы";
         return MatrixRow(this, index);//TODO сделать проверку индексов
     }
 
@@ -257,6 +259,11 @@ namespace mathTools
         }
     }
 
+    double Matrix::at(int i, int j)
+    {
+        return this->matrix[i * this->cols + j];
+    }
+
     std::ostream& operator<< (std::ostream& os, const Matrix& matrix) {
         //return os << "__" << std::endl;
         for (int i = 0; i < matrix.getRows(); i++) {
@@ -307,11 +314,13 @@ namespace mathTools
    
     double Matrix::MatrixRow::operator[](unsigned r) const
     {
+        if ((r < 0) || (r >= this->m_owner->cols)) throw "выход за границы";
         return this->m_owner->matrix[this->m_r * this->m_owner->cols + r];
     }
 
     double& Matrix::MatrixRow::operator[](unsigned r)
     {
+        if ((r < 0) || (r >= this->m_owner->cols)) throw "выход за границы";
         return this->m_owner->matrix[this->m_r * this->m_owner->cols + r];
     }
 }
