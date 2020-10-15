@@ -44,28 +44,22 @@ namespace mathTools
         Matrix& operator=(const Matrix& other);
         MatrixRow operator[](const int index);
         //const double* operator[](const int index) const;
-        /*Matrix& operator+=(const Matrix& other);
+        Matrix& operator+=(const Matrix& other);
         Matrix& operator-=(const Matrix& other);
         Matrix& operator*=(double k);
-        Matrix& operator*=(const Matrix& other);
+        /*Matrix& operator*=(const Matrix& other);*/
         Matrix operator+(const Matrix& other);
         Matrix operator-(const Matrix& other);
-        Matrix operator*(const Matrix& other);
-        Matrix operator*(double k);*/
+        /*Matrix operator*(const Matrix& other);*/
+        Matrix operator*(double k);
      
         
         static settings* settings();
         int getCols() const; //узнать кол-во столбцов
         int getRows() const; //узнать кол-во рядов
 
-        /*Изменяет размер матрицы. Работает как и в сторону увеличения, так
-        и в сторону уменьшения вплоть до удаления при пареметрах (0, 0).
-        При уменьшении размеров матрицы лишние элементы удаляются, при увиличерии
-        заполняются нулями. */
-        //void setLength(int rows, int cols);
-
-        //bool isMultiply(const Matrix& other); //проверка на возможность умножения
-        //bool isSum(const Matrix& other); //проверка на возможность сложения/вычитания
+        bool isMultiply(const Matrix& other); //проверка на возможность умножения
+        bool isSum(const Matrix& other); //проверка на возможность сложения/вычитания
 
         double getMax(); //вернуть максимальный элемент
         double getMin(); //вернуть минимальный элемент

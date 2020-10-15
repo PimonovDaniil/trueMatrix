@@ -114,23 +114,21 @@ namespace mathTools
     //}
 
     /*подмена понятий (перегрузка)*/
-   /* Matrix& Matrix::operator+=(const Matrix& other) {
+    Matrix& Matrix::operator+=(const Matrix& other) {
         if (this->isSum(other) == false)
             throw "Вычитание невозможно"; 
-        for (int i = 0; i < this->rows; i++)
-            for (int j = 0; j < this->cols; j++)
-                this->matrix[i][j] = this->matrix[i][j] + other[i][j];
+        for (int i = 0; i < this->rows * this->cols; i++)
+                this->matrix[i] += other.matrix[i];
 
         return *this;
-    }*/
+    }
 
     /*подмена понятий (перегрузка)*/
-    /*Matrix& Matrix::operator*=(double k) {
-        for (int i = 0; i < this->rows; i++)
-            for (int j = 0; j < this->cols; j++)
-                this->matrix[i][j] *= k;
+    Matrix& Matrix::operator*=(double k) {
+        for (int i = 0; i < this->rows * this->cols; i++)
+                this->matrix[i] *= k;
         return *this;
-    }*/
+    }
 
     /*Matrix& Matrix::operator*=(const Matrix& other) {
         if (this->isMultiply(other) == false) 
@@ -156,30 +154,29 @@ namespace mathTools
     }*/
 
     /*подмена понятий (перегрузка)*/
-    /*Matrix& Matrix::operator-=(const Matrix& other) {
+    Matrix& Matrix::operator-=(const Matrix& other) {
         if (this->isSum(other) == false) 
             throw "Вычитание невозможно";
      
-        for (int i = 0; i < this->rows; i++)
-            for (int j = 0; j < this->cols; j++)
-                this->matrix[i][j] -= other[i][j];
+        for (int i = 0; i < this->rows * this->cols; i++)
+            this->matrix[i] -= other.matrix[i];
         
         return *this;
-    }*/
+    }
 
     /*подмена понятий (перегрузка)*/
-    /*Matrix Matrix::operator+(const Matrix& other) {
+    Matrix Matrix::operator+(const Matrix& other) {
         Matrix res(*this);
         res += other;
         return res;
-    }*/
+    }
 
     /*подмена понятий (перегрузка)*/
-   /* Matrix Matrix::operator-(const Matrix& other) {
+    Matrix Matrix::operator-(const Matrix& other) {
         Matrix res(*this);
         res -= other;
         return res;
-    }*/
+    }
 
     /*подмена понятий (перегрузка)*/
     /*Matrix Matrix::operator*(const Matrix& other) {
@@ -189,11 +186,11 @@ namespace mathTools
     }*/
 
     /*подмена понятий (перегрузка)*/
-    /*Matrix Matrix::operator*(double k) {
+    Matrix Matrix::operator*(double k) {
         Matrix res(*this);
         res *= k;
         return res;
-    }  */  
+    }    
 
     int Matrix::getCols() const{//узнать кол-во столбцов
         return this->cols;
@@ -203,59 +200,13 @@ namespace mathTools
         return this->rows;
     }
 
-    /*Изменяет размер матрицы. Работает как и в сторону увеличения, так
-    и в сторону уменьшения вплоть до удаления при пареметрах (0, 0).
-    При уменьшении размеров матрицы лишние элементы удаляются, при увиличерии
-    заполняются нулями. */
-    //void Matrix::setLength(int rows, int cols) {
-    //    if ((rows == 0) || (cols == 0)) {
-    //        /*выкидываем за собой мусор*/
-    //        for (int i = 0; i < this->rows; i++)
-    //            delete[] this->matrix[i];
-    //        delete[] this->matrix;
-
-    //        this->matrix = nullptr;
-    //        this->rows = rows;
-    //        this->cols = cols;
-    //    }
-    //    else if ((rows < 0) || (cols < 0)) {
-    //        throw "Размер матрицы не может быть отрицательным";
-    //    }
-    //    else if (!((this->rows == rows) && (this->cols == cols))) {
-    //        /*инициализируем новую матрицу*/
-    //        double** newMatrix = new double* [rows];
-    //        for (int i = 0; i < rows; i++) {
-    //            newMatrix[i] = new double[cols];
-    //        }
-
-    //        /*переносим данные*/
-    //        for (int i = 0; i < rows; i++)
-    //            for (int j = 0; j < cols; j++)
-    //                if ((i < this->rows) && (j < this->cols)) {
-    //                    newMatrix[i][j] = this->matrix[i][j];
-    //                }
-    //                else {
-    //                    newMatrix[i][j] = 0;
-    //                }
-
-    //        /*выкидываем за собой мусор*/
-    //        for (int i = 0; i < this->rows; i++)
-    //            delete[] this->matrix[i];
-    //        delete[] this->matrix;
-
-    //        this->matrix = newMatrix;
-    //        this->cols = cols;
-    //        this->rows = rows;
-    //    }
-    //}
-
-    /*bool Matrix::isMultiply(const Matrix& other) {
+    bool Matrix::isMultiply(const Matrix& other) {
         return (this->matrix != nullptr && other.matrix != nullptr && this->cols == other.rows) ? true : false;
     }
 
     bool Matrix::isSum(const Matrix& other) {
         return ((this->cols == other.getCols()) && (this->rows == other.getRows()) && (other.matrix != nullptr)) ? true : false;
-    }*/
+    }
 
     double Matrix::getMax() {
         if ((this->rows > 0) && (this->cols > 0)) {
