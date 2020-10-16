@@ -127,20 +127,20 @@ namespace mathTools
 
     /*подмена понятий (перегрузка)*/
     Matrix::MatrixRow Matrix::operator[](const int index){
-        if((index<0) || (index >= this->rows)) throw "выход за границы";
+        if((index<0) || (index >= this->rows)) throw "выход за границы, объект №" + this->numObj;
         return MatrixRow(this, index);//TODO сделать проверку индексов
     }
 
     const Matrix::MatrixRow Matrix::operator[](const int index) const
     {
-        if ((index < 0) || (index >= this->rows)) throw "выход за границы";
+        if ((index < 0) || (index >= this->rows)) throw "выход за границы, объект №" + this->numObj;
         return MatrixRow(this, index);//TODO сделать проверку индексов
     }
 
     /*подмена понятий (перегрузка)*/
     Matrix& Matrix::operator+=(const Matrix& other) {
         if (this->isSum(other) == false)
-            throw "Вычитание невозможно"; 
+            throw "Вычитание невозможно, объект №" + this->numObj;
         for (int i = 0; i < this->rows * this->cols; i++)
                 this->matrix[i] += other.matrix[i];
 
@@ -156,7 +156,7 @@ namespace mathTools
 
     Matrix& Matrix::operator*=(const Matrix& other) {
         if (this->isMultiply(other) == false) 
-            throw "Вычитание невозможно";
+            throw "Вычитание невозможно, объект №" + this->numObj;
         double* newMatrix = new double [this->rows * other.cols];
 
         for (int i = 0; i < this->rows; i++)
@@ -176,7 +176,7 @@ namespace mathTools
     /*подмена понятий (перегрузка)*/
     Matrix& Matrix::operator-=(const Matrix& other) {
         if (this->isSum(other) == false) 
-            throw "Вычитание невозможно";
+            throw "Вычитание невозможно, объект №" + this->numObj;
      
         for (int i = 0; i < this->rows * this->cols; i++)
             this->matrix[i] -= other.matrix[i];
@@ -237,7 +237,7 @@ namespace mathTools
             return max;
         }
         else {
-            throw "Матрица пустая";
+            throw "Матрица пустая, объект №" + this->numObj;
         }
     }
 
@@ -255,7 +255,7 @@ namespace mathTools
             return min;
         }
         else {
-            throw "Матрица пустая";
+            throw "Матрица пустая, объект №" + this->numObj;
         }
     }
 
@@ -314,13 +314,13 @@ namespace mathTools
    
     double Matrix::MatrixRow::operator[](unsigned r) const
     {
-        if ((r < 0) || (r >= this->m_owner->cols)) throw "выход за границы";
+        if ((r < 0) || (r >= this->m_owner->cols)) throw "выход за границы, объект №" + this->m_owner->numObj;
         return this->m_owner->matrix[this->m_r * this->m_owner->cols + r];
     }
 
     double& Matrix::MatrixRow::operator[](unsigned r)
     {
-        if ((r < 0) || (r >= this->m_owner->cols)) throw "выход за границы";
+        if ((r < 0) || (r >= this->m_owner->cols)) throw "выход за границы, объект №" + this->m_owner->numObj;
         return this->m_owner->matrix[this->m_r * this->m_owner->cols + r];
     }
 }

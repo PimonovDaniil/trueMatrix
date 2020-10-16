@@ -1,2 +1,4 @@
-﻿  trueMatrix.cpp
+﻿  Matrix.cpp
+C:\Users\Даниил\source\repos\trueMatrix\trueMatrix\Matrix\Matrix.cpp(317,27): warning C4018: >=: несоответствие типов со знаком и без знака
+C:\Users\Даниил\source\repos\trueMatrix\trueMatrix\Matrix\Matrix.cpp(323,27): warning C4018: >=: несоответствие типов со знаком и без знака
   trueMatrix.vcxproj -> C:\Users\Даниил\source\repos\trueMatrix\Debug\trueMatrix.exe
